@@ -1,0 +1,7 @@
+package com.sizemore.trip;
+
+public class Trip {
+	
+	private LinkedList<String> trip;
+
+}

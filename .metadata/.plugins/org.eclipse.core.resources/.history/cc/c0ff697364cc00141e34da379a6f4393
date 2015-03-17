@@ -1,0 +1,14 @@
+package com.sizemore.trip;
+
+import java.util.LinkedList;
+
+public class Trip {
+	
+	private LinkedList<String> trip;
+	private int fitness;
+	
+	public Trip(LinkedList<String> trip) {
+		this.trip = trip;
+	}
+
+}

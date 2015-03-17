@@ -1,0 +1,38 @@
+package com.sizemore.trip;
+
+import java.util.LinkedList;
+
+public class Trip {
+	
+	private LinkedList<String> trip;
+	private int fitness;
+	
+	public Trip(LinkedList<String> trip) {
+		this.trip = trip;
+		this.fitness = fitness(trip);
+	}
+	
+	public int fitness(LinkedList<String> trip) {
+		
+		String begin = trip.get(0);
+		int fitness = 0;
+		
+		for (int i = 1; i <= trip.size(); i++) {
+			String start = trip.get(i-1);
+			String end;
+			if (i != trip.size()) end = trip.get(i);
+			else end = begin;
+			
+			if (routeCache.containsKey(start+end))  fitness += routeCache.get(start+end);
+			else if (routeCache.containsKey(end+start))  fitness += routeCache.get(end+start);
+			else {
+				String url = constructURL(start,end);
+				fitness += getDistance(url);
+				routeCache.put(start+end, fitness);
+				routeCache.put(end+start, fitness);
+			}
+		}
+		return fitness;
+	}
+
+}
