@@ -38,6 +38,30 @@ public class Tripper {
 			}));
 	
 	public static final int CHAR_ZERO = 48;
+	public static final int POPULATION_SIZE = 1000;
+	public static final int GENERATIONS = 100;
+
+	public String addLandmarks(StringBuilder trip, LinkedList<String> landmarks) {
+		LinkedList<Integer> added = new LinkedList<Integer>();
+
+		int index = (int) (Math.random() * landmarks.size());
+		char landmark = (char) (index + CHAR_ZERO);
+		trip.append(landmark);
+		landmarks.remove(index);
+		added.add(index);
+
+		while (!landmarks.isEmpty()) {
+			index = (int) (Math.random() * landmarks.size());
+			int offset = 0;
+			while (index <= added.get(offset)) offset++;
+			landmark = (char) (index + offset + CHAR_ZERO);
+			trip.append(landmark);
+			landmarks.remove(index);
+			added.add(index,offset);
+		}
+
+		return trip.toString();
+	}
 	
 	public Vector<String> createTrips(int population) {
 		
@@ -46,14 +70,8 @@ public class Tripper {
 		for (int i = 0; i < population; i++) {
 			StringBuilder trip = new StringBuilder();
 			LinkedList<String> landmarks = new LinkedList<String>(Tripper.landmarks);
-			
-			while (!landmarks.isEmpty()) {
-				int index = (int) (Math.random() * landmarks.size());
-				char landmark = (char) (index + CHAR_ZERO);
-				trip.append(landmark);
-				landmarks.remove(index);
-			}
-			trips.add(trip.toString());
+
+			trips.add(addLandmarks(trip,landmarks));
 		}
 		return trips;
 	}
@@ -81,12 +99,7 @@ public class Tripper {
 		
 		LinkedList<String> leftovers = new LinkedList<String>(Tripper.landmarks);
 		leftovers.removeAll(added);
-		while (!leftovers.isEmpty()) {
-			int index = (int) (Math.random() * leftovers.size());
-			child.append((char) (index + CHAR_ZERO));
-			leftovers.remove(index);
-		}
-		return child.toString();
+		return addLandmarks(child, leftovers);
 	}
 	
 	public URL constructURL(char origin, char destination) throws MalformedURLException {
@@ -180,38 +193,77 @@ public class Tripper {
 			else return 1;
 		}
 	};
+
+	public Vector<String> merge(Vector<String> a, Vector<String> b) {
+
+		Vector<String> fittest = new Vector<String>();
+
+		for (int i = 0; i < POPULATION_SIZE; i++) {
+			int fitness1 = fitness(a.getFirst());
+			int fitness2 = fitness(b.getFirst());
+			if (fitness1 >= fitness2) {
+				fittest.add(fitness1);
+				a.remove(0);
+			}
+			else {
+				fittest.add(fitness2);
+				b.remove(0);
+			}
+		}
+
+		return fittest;
+	}
+
+	public Vector<String> createNextGeneration(Vector<String> parentGen) {
+		Vector<String> nextGen = new Vector<String>();
+
+		for (int i = 0; i < POPULATION_SIZE; i++) {
+			int i1 = (int) (Math.random() * parentGen.size());
+			int i2 = (int) (Math.random() * parentGen.size());
+			while (i2 == i1) i2 = (int) (Math.random() * parentGen.size());
+			
+			String child = spawn(parentGen.get(i1), parentGen.get(i2));
+			child = mutate(child);
+			nextGeneration.add(child);
+		}
+
+		Collections.sort(nextGen,compare);
+		return nextGen;
+	}
+
+	public String buildTrip(String trip) {
+
+		StringBuilder directions = new StringBuilder();
+		char[] landmarks = trip.toCharArray;
+		char begin = landmarks[0];
+
+		for (int i = 1; i <= landmarks.length; i++) {
+			char start = landmarks[i-1];
+			char end;
+			if (i != landmarks.length) end = landmarks[i];
+			else end = begin;
+
+			int distance = routeCache.get(""+start+end);
+			directions.append("Drive " + distance + " miles from " + landmarks.get((int) (start - CHAR_ZERO)) + " to " + landmarks.get((int) (end - CHAR_ZERO) + "\n");
+		}
+		directions.append("Total Distance: " + fitness(trip));
+	}
 	
 	public Tripper() {
 		
-		Vector<String> trips = createTrips(1000);
-		
-		Vector<String> nextGeneration = new Vector<String>();
-		for (int i = 0; i < trips.size(); i++) {
-			int i1 = (int) (Math.random() * trips.size());
-			int i2 = (int) (Math.random() * trips.size());
-			while (i2 == i1) i2 = (int) (Math.random() * trips.size());
-			
-			String child = spawn(trips.get(i1), trips.get(i2));
-			child = mutate(child);
-			nextGeneration.add(child);
-			Collections.sort(trips,compare);
-			Collections.sort(nextGeneration,compare);
-			// merge lists here
+		Vector<String> trips = createTrips(POPULATION_SIZE);
+		Collections.sort(trips,compare);
+
+		for (int i = 0; i < GENERATIONS; i++) {
+			Vector<String> nextGeneration = createNextGeneration(trips);
+			trips = merge(trips, fittest);
 		}
+
+		System.out.println(buildTrip(trips.getFirst()));
+
 	}
 	
 	public static void main(String[] args) {
 		new Tripper();
-	}
-	
-	class Pair<T> {
-		
-		T first;
-		T second;
-		
-		Pair(T first, T second) {
-			this.first = first;
-			this.second = second;
-		}
 	}
 }
