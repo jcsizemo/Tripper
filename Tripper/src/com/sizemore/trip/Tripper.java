@@ -201,7 +201,7 @@ public class Tripper {
 	Comparator<String> compare = new Comparator<String>() {
 		@Override
 		public int compare(String t1, String t2) {
-			if (fitness(t1) <= fitness(t2)) return 1;
+			if (fitness(t1) >= fitness(t2)) return 1;
 			else return -1;
 		}
 	};
@@ -256,7 +256,10 @@ public class Tripper {
 			else end = begin;
 
 			int distance = routeCache.get(""+start+end);
-			directions.append("Drive " + distance + " miles from " + landmarks[(int) (start - CHAR_ZERO)] + " to " + landmarks[(int) (end - CHAR_ZERO)] + "\n");
+			int startIndex = (int) (start - CHAR_ZERO);
+			int endIndex = (int) (end - CHAR_ZERO);
+			directions.append("Drive " + distance + " miles from " + Tripper.landmarks.get(startIndex)
+					+ " to " + Tripper.landmarks.get(endIndex) + "\n");
 		}
 		directions.append("Total Distance: " + fitness(trip));
 		return directions.toString();
@@ -273,6 +276,18 @@ public class Tripper {
 		}
 
 		System.out.println(buildTrip(parentGen.firstElement()));
+		fitness(parentGen.firstElement());
+		char[] stops = parentGen.firstElement().toCharArray();
+		
+		for (int index = 0; index < stops.length; index++) {
+			String drive = "" + stops[index] + stops[index + 1];
+			System.out.println(routeCache.containsKey(drive));
+			System.out.println(routeCache.get(drive));
+			index++;
+		}
+		String drive = "" + stops[stops.length-1] + stops[0];
+		System.out.println(routeCache.containsKey(drive));
+		System.out.println(routeCache.get(drive));
 
 	}
 	
