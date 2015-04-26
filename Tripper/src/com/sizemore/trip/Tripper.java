@@ -15,6 +15,8 @@ import java.util.LinkedList;
 import java.util.Map;
 import java.util.Set;
 import java.util.Vector;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Tripper {
 	
@@ -40,6 +42,8 @@ public class Tripper {
 	public static final int CHAR_ZERO = 48;
 	public static final int POPULATION_SIZE = 1000;
 	public static final int GENERATIONS = 100;
+	
+	Pattern distancePattern = Pattern.compile("[0-9]*");
 
 	public String addLandmarks(StringBuilder trip, LinkedList<String> landmarks) {
 		LinkedList<Integer> added = new LinkedList<Integer>();
@@ -53,11 +57,11 @@ public class Tripper {
 		while (!landmarks.isEmpty()) {
 			index = (int) (Math.random() * landmarks.size());
 			int offset = 0;
-			while (index <= added.get(offset)) offset++;
+			while (offset < added.size() && (index + offset) >= added.get(offset)) offset++;
 			landmark = (char) (index + offset + CHAR_ZERO);
 			trip.append(landmark);
 			landmarks.remove(index);
-			added.add(index,offset);
+			added.add(offset,index + offset);
 		}
 
 		return trip.toString();
@@ -78,13 +82,15 @@ public class Tripper {
 	
 	public String spawn(String a, String b) {
 		
-		Set<Character> added = new HashSet<Character>();
+		Set<String> added = new HashSet<String>();
 		StringBuilder child = new StringBuilder();
 		
 		for (int i = 0; i < a.length(); i++) {
-			char landmarkA = a.charAt(i);
-			char landmarkB = b.charAt(i);
-			char chosen;
+			int indexA = (int) (a.charAt(i) - CHAR_ZERO);
+			int indexB = (int) (b.charAt(i) - CHAR_ZERO);
+			String landmarkA = landmarks.get(indexA);
+			String landmarkB = landmarks.get(indexB);
+			String chosen;
 			double choice = Math.random();
 			
 			if (added.contains(landmarkA) && added.contains(landmarkB)) continue;
@@ -125,9 +131,10 @@ public class Tripper {
 			while (fitness == 0 && null != (line = br.readLine())) {
 				if ("               \"distance\" : {".equals(line)) {
 					line = br.readLine().trim();
-					line = line.substring(line.indexOf('\"'));
-					line = line.substring(0, line.indexOf('m'));
+					line = line.substring(10);
+					line = line.substring(0, line.indexOf('m') - 1);
 					if (line.contains(",")) line = line.substring(0, line.indexOf(',')) + line.substring(line.indexOf(',') + 1, line.length());
+					if (line.contains(".")) line = line.substring(0, line.indexOf('.'));
 					fitness = Integer.parseInt(line);
 				}
 			}
