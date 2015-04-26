@@ -122,13 +122,15 @@ public class Tripper {
 			conn.setRequestMethod("GET");
 			BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
 			String line;
-			while (fitness == 0 && null != (line = br.readLine())) {
+			while (null != (line = br.readLine())) {
 				if ("               \"distance\" : {".equals(line)) {
 					line = br.readLine().trim();
 					line = line.substring(line.indexOf('\"'));
 					line = line.substring(0, line.indexOf('m'));
 					if (line.contains(",")) line = line.substring(0, line.indexOf(',')) + line.substring(line.indexOf(',') + 1, line.length());
 					fitness = Integer.parseInt(line);
+					int x = 1;
+					x = x + 1;
 				}
 			}
 		}

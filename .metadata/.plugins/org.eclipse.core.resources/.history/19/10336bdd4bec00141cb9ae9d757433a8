@@ -121,14 +121,17 @@ public class Tripper {
 			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 			conn.setRequestMethod("GET");
 			BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+			StringBuilder sb = new StringBuilder();
 			String line;
-			while (fitness == 0 && null != (line = br.readLine())) {
+			while (null != (line = br.readLine())) {
 				if ("               \"distance\" : {".equals(line)) {
 					line = br.readLine().trim();
 					line = line.substring(line.indexOf('\"'));
 					line = line.substring(0, line.indexOf('m'));
 					if (line.contains(",")) line = line.substring(0, line.indexOf(',')) + line.substring(line.indexOf(',') + 1, line.length());
 					fitness = Integer.parseInt(line);
+					int x = 1;
+					x = x + 1;
 				}
 			}
 		}
@@ -196,15 +199,15 @@ public class Tripper {
 		Vector<String> fittest = new Vector<String>();
 
 		for (int i = 0; i < POPULATION_SIZE; i++) {
-			String tripA = a.firstElement();
-			String tripB = b.firstElement();
-			if (fitness(tripA) >= fitness(tripB)) {
-				fittest.add(tripA);
-				a.removeElementAt(0);
+			int fitness1 = fitness(a.firstElement());
+			int fitness2 = fitness(b.firstElement());
+			if (fitness1 >= fitness2) {
+				fittest.add(fitness1);
+				a.remove(0);
 			}
 			else {
-				fittest.add(tripB);
-				b.removeElementAt(0);
+				fittest.add(fitness2);
+				b.remove(0);
 			}
 		}
 
@@ -221,7 +224,7 @@ public class Tripper {
 			
 			String child = spawn(parentGen.get(i1), parentGen.get(i2));
 			child = mutate(child);
-			nextGen.add(child);
+			nextGeneration.add(child);
 		}
 
 		Collections.sort(nextGen,compare);
@@ -231,7 +234,7 @@ public class Tripper {
 	public String buildTrip(String trip) {
 
 		StringBuilder directions = new StringBuilder();
-		char[] landmarks = trip.toCharArray();
+		char[] landmarks = trip.toCharArray;
 		char begin = landmarks[0];
 
 		for (int i = 1; i <= landmarks.length; i++) {
@@ -241,23 +244,22 @@ public class Tripper {
 			else end = begin;
 
 			int distance = routeCache.get(""+start+end);
-			directions.append("Drive " + distance + " miles from " + landmarks[(int) (start - CHAR_ZERO)] + " to " + landmarks[(int) (end - CHAR_ZERO)] + "\n");
+			directions.append("Drive " + distance + " miles from " + landmarks.get((int) (start - CHAR_ZERO)) + " to " + landmarks.get((int) (end - CHAR_ZERO) + "\n");
 		}
 		directions.append("Total Distance: " + fitness(trip));
-		return directions.toString();
 	}
 	
 	public Tripper() {
 		
-		Vector<String> parentGen = createTrips(POPULATION_SIZE);
-		Collections.sort(parentGen,compare);
+		Vector<String> trips = createTrips(POPULATION_SIZE);
+		Collections.sort(trips,compare);
 
 		for (int i = 0; i < GENERATIONS; i++) {
-			Vector<String> nextGeneration = createNextGeneration(parentGen);
-			parentGen = merge(parentGen, nextGeneration);
+			Vector<String> nextGeneration = createNextGeneration(trips);
+			trips = merge(trips, fittest);
 		}
 
-		System.out.println(buildTrip(parentGen.firstElement()));
+		System.out.println(buildTrip(trips.getFirst()));
 
 	}
 	
