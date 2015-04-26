@@ -44,21 +44,26 @@ public class Tripper {
 	public static final int GENERATIONS = 100;
 	
 	Pattern distancePattern = Pattern.compile("[0-9]*");
-
+	
 	public String addLandmarks(StringBuilder trip, LinkedList<String> landmarks) {
+		
 		LinkedList<Integer> added = new LinkedList<Integer>();
-
 		int index = (int) (Math.random() * landmarks.size());
 		char landmark = (char) (index + CHAR_ZERO);
 		trip.append(landmark);
 		landmarks.remove(index);
 		added.add(index);
+		
+		return addLandmarks(trip, landmarks, added);
+	}
+
+	public String addLandmarks(StringBuilder trip, LinkedList<String> landmarks, LinkedList<Integer> added) {
 
 		while (!landmarks.isEmpty()) {
-			index = (int) (Math.random() * landmarks.size());
+			int index = (int) (Math.random() * landmarks.size());
 			int offset = 0;
 			while (offset < added.size() && (index + offset) >= added.get(offset)) offset++;
-			landmark = (char) (index + offset + CHAR_ZERO);
+			char landmark = (char) (index + offset + CHAR_ZERO);
 			trip.append(landmark);
 			landmarks.remove(index);
 			added.add(offset,index + offset);
@@ -83,12 +88,15 @@ public class Tripper {
 	public String spawn(String a, String b) {
 		
 		Set<String> added = new HashSet<String>();
+		Set<Integer> addedIndices = new HashSet<Integer>();
 		StringBuilder child = new StringBuilder();
 		
 		for (int i = 0; i < a.length(); i++) {
-			char landmarkA = a.charAt(i);
-			char landmarkB = b.charAt(i);
-			char chosen;
+			int indexA = (int) (a.charAt(i) - CHAR_ZERO);
+			int indexB = (int) (b.charAt(i) - CHAR_ZERO);
+			String landmarkA = landmarks.get(indexA);
+			String landmarkB = landmarks.get(indexB);
+			String chosen;
 			double choice = Math.random();
 			
 			if (added.contains(landmarkA) && added.contains(landmarkB)) continue;
@@ -97,13 +105,15 @@ public class Tripper {
 			else if (choice < 0.5) chosen = landmarkA;
 			else chosen = landmarkB;
 			
-			child.append(chosen);
-			added.add(Tripper.landmarks.get((int) (chosen - CHAR_ZERO)));
+			int index = chosen.equals(landmarkA) ? indexA : indexB;
+			child.append(index);
+			addedIndices.add(index);
+			added.add(chosen);
 		}
 		
 		LinkedList<String> leftovers = new LinkedList<String>(Tripper.landmarks);
 		leftovers.removeAll(added);
-		return addLandmarks(child, leftovers);
+		return addLandmarks(child, leftovers, new LinkedList<Integer>(addedIndices));
 	}
 	
 	public URL constructURL(char origin, char destination) throws MalformedURLException {

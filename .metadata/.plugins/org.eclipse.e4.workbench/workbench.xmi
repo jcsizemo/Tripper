@@ -170,7 +170,7 @@
           <tags>persp.perspSC:org.eclipse.wst.xml.ui.perspective</tags>
           <children xsi:type="basic:PartSashContainer" xmi:id="_nRCDwcxREeSG8t_ITnxyGw" selectedElement="_nRCDwsxREeSG8t_ITnxyGw">
             <children xsi:type="basic:PartSashContainer" xmi:id="_nRCDwsxREeSG8t_ITnxyGw" containerData="7500" selectedElement="_nRCDzsxREeSG8t_ITnxyGw">
-              <children xsi:type="basic:PartSashContainer" xmi:id="_nRCDw8xREeSG8t_ITnxyGw" containerData="4500" selectedElement="_nRCDxMxREeSG8t_ITnxyGw" horizontal="true">
+              <children xsi:type="basic:PartSashContainer" xmi:id="_nRCDw8xREeSG8t_ITnxyGw" containerData="4500" selectedElement="_nRCDycxREeSG8t_ITnxyGw" horizontal="true">
                 <children xsi:type="basic:PartStack" xmi:id="_nRCDxMxREeSG8t_ITnxyGw" elementId="org.eclipse.debug.internal.ui.NavigatorFolderView" containerData="5000" selectedElement="_nRCDxcxREeSG8t_ITnxyGw">
                   <tags>newtablook</tags>
                   <tags>org.eclipse.e4.primaryNavigationStack</tags>
@@ -246,7 +246,7 @@
         <tags>EditorStack</tags>
         <tags>active</tags>
         <children xsi:type="basic:Part" xmi:id="_lH1E8Mw4EeSG8t_ITnxyGw" elementId="org.eclipse.e4.ui.compatibility.editor" contributionURI="bundleclass://org.eclipse.ui.workbench/org.eclipse.ui.internal.e4.compatibility.CompatibilityEditor" label="Tripper.java" iconURI="platform:/plugin/org.eclipse.jdt.ui/icons/full/obj16/jcu_obj.gif" closeable="true">
-          <persistedState key="memento" value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xA;&lt;editor id=&quot;org.eclipse.jdt.ui.CompilationUnitEditor&quot; name=&quot;Tripper.java&quot; partName=&quot;Tripper.java&quot; title=&quot;Tripper.java&quot; tooltip=&quot;Tripper/src/com/sizemore/trip/Tripper.java&quot;>&#xA;&lt;input factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; path=&quot;/Tripper/src/com/sizemore/trip/Tripper.java&quot;/>&#xA;&lt;editorState selectionHorizontalPixel=&quot;0&quot; selectionLength=&quot;0&quot; selectionOffset=&quot;1772&quot; selectionTopPixel=&quot;630&quot;/>&#xA;&lt;/editor>"/>
+          <persistedState key="memento" value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xA;&lt;editor id=&quot;org.eclipse.jdt.ui.CompilationUnitEditor&quot; name=&quot;Tripper.java&quot; partName=&quot;Tripper.java&quot; title=&quot;Tripper.java&quot; tooltip=&quot;Tripper/src/com/sizemore/trip/Tripper.java&quot;>&#xA;&lt;input factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; path=&quot;/Tripper/src/com/sizemore/trip/Tripper.java&quot;/>&#xA;&lt;editorState selectionHorizontalPixel=&quot;0&quot; selectionLength=&quot;0&quot; selectionOffset=&quot;8147&quot; selectionTopPixel=&quot;3626&quot;/>&#xA;&lt;/editor>"/>
           <tags>Editor</tags>
           <tags>org.eclipse.jdt.ui.CompilationUnitEditor</tags>
           <tags>removeOnHide</tags>
@@ -438,7 +438,7 @@
       </children>
       <children xsi:type="menu:ToolBar" xmi:id="_LfDT8Mw4EeSG8t_ITnxyGw" elementId="org.eclipse.ui.workbench.file">
         <tags>Draggable</tags>
-        <children xsi:type="menu:HandledToolItem" xmi:id="_hkKygOxZEeSCsMJhUFrbtA" elementId="print" iconURI="platform:/plugin/org.eclipse.ui/icons/full/etool16/print_edit.png" tooltip="Print" enabled="false" command="_JskCrcw4EeSG8t_ITnxyGw"/>
+        <children xsi:type="menu:HandledToolItem" xmi:id="_91vYcOxeEeSu9bB3z0Fipw" elementId="print" iconURI="platform:/plugin/org.eclipse.ui/icons/full/etool16/print_edit.png" tooltip="Print" enabled="false" command="_JskCrcw4EeSG8t_ITnxyGw"/>
       </children>
       <children xsi:type="menu:ToolBar" xmi:id="_LfD7AMw4EeSG8t_ITnxyGw" elementId="additions" toBeRendered="false">
         <tags>toolbarSeparator</tags>
@@ -471,7 +471,7 @@
       </children>
       <children xsi:type="menu:ToolBar" xmi:id="_LfEiEMw4EeSG8t_ITnxyGw" elementId="org.eclipse.ui.workbench.navigate">
         <tags>Draggable</tags>
-        <children xsi:type="menu:HandledToolItem" xmi:id="_hkWYsexZEeSCsMJhUFrbtA" elementId="org.eclipse.ui.window.pinEditor" visible="false" iconURI="platform:/plugin/org.eclipse.ui/icons/full/etool16/pin_editor.png" tooltip="Pin Editor" type="Check" command="_JscG8sw4EeSG8t_ITnxyGw"/>
+        <children xsi:type="menu:HandledToolItem" xmi:id="_912tMexeEeSu9bB3z0Fipw" elementId="org.eclipse.ui.window.pinEditor" visible="false" iconURI="platform:/plugin/org.eclipse.ui/icons/full/etool16/pin_editor.png" tooltip="Pin Editor" type="Check" command="_JscG8sw4EeSG8t_ITnxyGw"/>
       </children>
       <children xsi:type="menu:ToolBar" xmi:id="_LfFJIMw4EeSG8t_ITnxyGw" elementId="group.editor" toBeRendered="false">
         <tags>toolbarSeparator</tags>
@@ -772,7 +772,7 @@
     </bindings>
     <bindings xmi:id="_Jwan5Mw4EeSG8t_ITnxyGw" keySequence="ALT+CTRL+H" command="_JsdVDsw4EeSG8t_ITnxyGw"/>
     <bindings xmi:id="_Jwan5cw4EeSG8t_ITnxyGw" keySequence="ALT+COMMAND+SHIFT+ARROW_DOWN" command="_JslQ78w4EeSG8t_ITnxyGw"/>
-    <bindings xmi:id="_g24OsexZEeSCsMJhUFrbtA" keySequence="COMMAND+CTRL+F" command="_JxCS8Mw4EeSG8t_ITnxyGw"/>
+    <bindings xmi:id="_88A7IOxeEeSu9bB3z0Fipw" keySequence="COMMAND+CTRL+F" command="_JxCS8Mw4EeSG8t_ITnxyGw"/>
   </bindingTables>
   <bindingTables xmi:id="_JwMlcsw4EeSG8t_ITnxyGw" elementId="org.eclipse.ui.textEditorScope" bindingContext="_Ju_rm8w4EeSG8t_ITnxyGw">
     <bindings xmi:id="_JwMlc8w4EeSG8t_ITnxyGw" keySequence="COMMAND+SHIFT+NUMPAD_MULTIPLY" command="_Jsct6sw4EeSG8t_ITnxyGw"/>
@@ -1046,7 +1046,7 @@
     <bindings xmi:id="_Jwan48w4EeSG8t_ITnxyGw" keySequence="CTRL+D" command="_Jsg_W8w4EeSG8t_ITnxyGw"/>
   </bindingTables>
   <bindingTables xmi:id="_JxC6AMw4EeSG8t_ITnxyGw" contributorURI="platform:/fragment/org.eclipse.e4.ui.workbench.renderers.swt.cocoa" bindingContext="_JhNuR8w4EeSG8t_ITnxyGw">
-    <bindings xmi:id="_g241wOxZEeSCsMJhUFrbtA" keySequence="M1+W" command="_JxCS9cw4EeSG8t_ITnxyGw"/>
+    <bindings xmi:id="_88BiMOxeEeSu9bB3z0Fipw" keySequence="M1+W" command="_JxCS9cw4EeSG8t_ITnxyGw"/>
   </bindingTables>
   <bindingTables xmi:id="_L34Docw4EeSG8t_ITnxyGw" bindingContext="_L34DoMw4EeSG8t_ITnxyGw"/>
   <bindingTables xmi:id="_L34qscw4EeSG8t_ITnxyGw" bindingContext="_L34qsMw4EeSG8t_ITnxyGw"/>

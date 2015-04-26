@@ -165,7 +165,7 @@ public class Tripper {
 		for (int i = 0; i < mutations; i++) {
 			int i1 = (int) (Math.random() * trip.length());
 			int i2 = (int) (Math.random() * trip.length());
-			char temp = (char) (i1 + CHAR_ZERO);
+			char temp = landmarks[i1];
 			landmarks[i1] = landmarks[i2];
 			landmarks[i2] = temp;
 		}
@@ -201,8 +201,8 @@ public class Tripper {
 	Comparator<String> compare = new Comparator<String>() {
 		@Override
 		public int compare(String t1, String t2) {
-			if (fitness(t1) <= fitness(t2)) return -1;
-			else return 1;
+			if (fitness(t1) <= fitness(t2)) return 1;
+			else return -1;
 		}
 	};
 
@@ -213,7 +213,7 @@ public class Tripper {
 		for (int i = 0; i < POPULATION_SIZE; i++) {
 			String tripA = a.firstElement();
 			String tripB = b.firstElement();
-			if (fitness(tripA) >= fitness(tripB)) {
+			if (fitness(tripA) <= fitness(tripB)) {
 				fittest.add(tripA);
 				a.removeElementAt(0);
 			}
